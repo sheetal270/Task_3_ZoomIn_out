@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Zoom</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        #image-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        #zoom-buttons {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #zoom-buttons button {
+            margin-bottom: 10px;
+            padding: 5px;
+            font-size: 25px;
+            cursor: pointer;
+        }
+        
+
+    </style>
+</head>
+<body>
+
+<div id="image-container">
+    <div id="zoom-buttons">
+        <button onclick="zoomIn()">+</button>
+        <button onclick="zoomOut()">_</button>
+    </div>
+    <img id="zoom-image" src="./cc5.jpg" alt="Zoomable Image" class="center" style="width: 85%;height: 70%;">
+</div>
+
+<script>
+    var currentZoom = 1;
+
+    function zoomIn() {
+        currentZoom += 0.1;
+        updateZoom();
+    }
+
+    function zoomOut() {
+        if (currentZoom > 0.1) {
+            currentZoom -= 0.1;
+            updateZoom();
+        }
+    }
+
+    function updateZoom() {
+        var zoomedImage = document.getElementById('zoom-image');
+        zoomedImage.style.transform = `scale(${currentZoom})`;
+    }
+</script>
+
+</body>
+</html>
