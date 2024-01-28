@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Image Zoom</title>
     <style>
         body {
@@ -17,12 +18,32 @@
         #image-container {
             position: relative;
             overflow: hidden;
+            text-align: center;
+        }
+
+        #zoom-image {
+            display: block;
+            margin: 0 auto;
+            width: 85%;
+            height: 70%;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        #overlay-text {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 24px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            z-index: 2;
         }
 
         #zoom-buttons {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 30px;
+            left: 110px;
             z-index: 1;
             display: flex;
             flex-direction: column;
@@ -30,34 +51,44 @@
 
         #zoom-buttons button {
             margin-bottom: 10px;
-            padding: 5px;
-            font-size: 25px;
+            padding: 10px;
+            font-size: 36px;
             cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
         }
-        
 
+        #zoom-buttons button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
 
 <div id="image-container">
+    <img id="zoom-image" src="./cc5.jpg" alt="Zoomable Image">
+    <div id="overlay-text" style="height: 80px;">Image Zoom In Zoom Out Using Javascript</div>
     <div id="zoom-buttons">
-        <button onclick="zoomIn()">+</button>
-        <button onclick="zoomOut()">_</button>
+        <button onclick="zoomIn()"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+        <button onclick="zoomOut()"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
     </div>
-    <img id="zoom-image" src="./cc5.jpg" alt="Zoomable Image" class="center" style="width: 85%;height: 70%;">
 </div>
 
 <script>
     var currentZoom = 1;
 
     function zoomIn() {
-        currentZoom += 0.1;
-        updateZoom();
+        if (currentZoom < 2) { // Set an upper limit for zoom-in
+            currentZoom += 0.1;
+            updateZoom();
+        }
     }
 
     function zoomOut() {
-        if (currentZoom > 0.1) {
+        if (currentZoom > 0.2) { // Set a lower limit for zoom-out
             currentZoom -= 0.1;
             updateZoom();
         }
